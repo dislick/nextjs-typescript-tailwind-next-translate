@@ -5,28 +5,35 @@ import remark from 'remark';
 import html from 'remark-html';
 
 const postsDirectory = path.join(process.cwd(), './src/posts');
+const { defaultLocale } = require('../../i18n.json');
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export function getSortedPostsData() {
+export function getSortedPostsData(locale: string) {
   // Get file names under /posts
-  const fileNames = fs.readdirSync(postsDirectory);
-  const allPostsData = fileNames.map((fileName) => {
-    // Remove ".md" from file name to get id
-    const id = fileName.replace(/\.md$/, '');
+  const postIds = fs.readdirSync(postsDirectory);
 
-    // Read markdown file as string
-    const fullPath = path.join(postsDirectory, fileName);
-    const fileContents = fs.readFileSync(fullPath, 'utf8');
+  const allPostsData = postIds
+    .map((id) => {
+      // Read markdown file as string
+      const filename = locale === defaultLocale ? 'index.md' : `index.${locale}.md`;
+      const fullPath = path.join(postsDirectory, id, filename);
 
-    // Use gray-matter to parse the post metadata section
-    const matterResult = matter(fileContents);
+      if (!fs.existsSync(fullPath)) {
+        return;
+      }
 
-    // Combine the data with the id
-    return {
-      id,
-      ...(matterResult.data as { date: string; title: string }),
-    };
-  });
+      const fileContents = fs.readFileSync(fullPath, 'utf8');
+
+      // Use gray-matter to parse the post metadata section
+      const matterResult = matter(fileContents);
+
+      // Combine the data with the id
+      return {
+        id,
+        ...(matterResult.data as { date: string; title: string }),
+      };
+    })
+    .filter((post) => post);
   // Sort posts by date
   return allPostsData.sort((a, b) => {
     if (a.date < b.date) {
