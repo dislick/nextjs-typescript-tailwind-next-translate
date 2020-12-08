@@ -48,11 +48,11 @@ export function getSortedPostsData(locale: string) {
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export function getAllPostIds() {
-  const fileNames = fs.readdirSync(postsDirectory);
-  return fileNames.map((fileName) => {
+  const postIds = fs.readdirSync(postsDirectory);
+  return postIds.map((postId) => {
     return {
       params: {
-        id: fileName.replace(/\.md$/, ''),
+        id: postId,
       },
     };
   });
@@ -60,7 +60,7 @@ export function getAllPostIds() {
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export async function getPostData(id: string) {
-  const fullPath = path.join(postsDirectory, `${id}.md`);
+  const fullPath = path.join(postsDirectory, id, `index.md`);
   const fileContents = fs.readFileSync(fullPath, 'utf8');
 
   // Use gray-matter to parse the post metadata section
