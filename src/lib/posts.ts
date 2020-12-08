@@ -47,20 +47,36 @@ export function getSortedPostsData(locale: string) {
 }
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export function getAllPostIds() {
+export function getAllPostIds(locales: string[]) {
+  let paths: { params: { id: string }; locale: string }[] = [];
+
   const postIds = fs.readdirSync(postsDirectory);
-  return postIds.map((postId) => {
-    return {
-      params: {
-        id: postId,
-      },
-    };
-  });
+
+  for (let id of postIds) {
+    for (let locale of locales) {
+      let fullpath = path.join(
+        postsDirectory,
+        id,
+        locale === defaultLocale ? 'index.md' : `index.${locale}.md`,
+      );
+      if (!fs.existsSync(fullpath)) {
+        continue;
+      }
+
+      paths.push({ params: { id }, locale });
+    }
+  }
+
+  return paths;
 }
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export async function getPostData(id: string) {
-  const fullPath = path.join(postsDirectory, id, `index.md`);
+export async function getPostData(id: string, locale: string) {
+  const fullPath = path.join(
+    postsDirectory,
+    id,
+    locale === defaultLocale ? 'index.md' : `index.${locale}.md`,
+  );
   const fileContents = fs.readFileSync(fullPath, 'utf8');
 
   // Use gray-matter to parse the post metadata section

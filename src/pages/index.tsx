@@ -67,7 +67,7 @@ export const Home = ({
               </Link>
               <br />
               <small className={utilStyles.lightText}>
-                <Date dateString={date} />
+                <Date dateString={date} locale={locale} />
               </small>
             </li>
           ))}
