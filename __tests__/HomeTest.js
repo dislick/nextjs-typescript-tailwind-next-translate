@@ -9,12 +9,12 @@ afterEach(cleanup);
 
 // eslint-disable-next-line no-undef
 describe('HomePage', () => {
-    // eslint-disable-next-line no-undef
-    test('renders Home component', () => {
-        function render({ locale = 'en', locales, defaultLocale } = {}) {
-            return <Home allPostsData={[]} />;
-        }
-    });
+  // eslint-disable-next-line no-undef
+  test('renders Home component', () => {
+    function render({ locale = 'en', locales, defaultLocale } = {}) {
+      return <Home allPostsData={[]} />;
+    }
+  });
 });
 
 // re-export everything

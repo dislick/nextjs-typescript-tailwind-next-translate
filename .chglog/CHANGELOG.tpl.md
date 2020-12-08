@@ -10,11 +10,11 @@
 
 {{ range .Commits -}}
 
--   {{ if .Scope }}**{{ .Scope }}:** {{ end }}{{ .Subject }}
-    {{ end }}
-    {{ end -}}
-    {{ end -}}
-    {{ end -}}
+- {{ if .Scope }}**{{ .Scope }}:** {{ end }}{{ .Subject }}
+  {{ end }}
+  {{ end -}}
+  {{ end -}}
+  {{ end -}}
 
 {{ range .Versions }}
 <a name="{{ .Tag.Name }}"></a>
@@ -27,9 +27,9 @@
 
 {{ range .Commits -}}
 
--   {{ if .Scope }}**{{ .Scope }}:** {{ end }}{{ .Subject }}
-    {{ end }}
-    {{ end -}}
+- {{ if .Scope }}**{{ .Scope }}:** {{ end }}{{ .Subject }}
+  {{ end }}
+  {{ end -}}
 
 {{- if .RevertCommits -}}
 
@@ -37,9 +37,9 @@
 
 {{ range .RevertCommits -}}
 
--   {{ .Revert.Header }}
-    {{ end }}
-    {{ end -}}
+- {{ .Revert.Header }}
+  {{ end }}
+  {{ end -}}
 
 {{- if .MergeCommits -}}
 
@@ -47,9 +47,9 @@
 
 {{ range .MergeCommits -}}
 
--   {{ .Header }}
-    {{ end }}
-    {{ end -}}
+- {{ .Header }}
+  {{ end }}
+  {{ end -}}
 
 {{- if .NoteGroups -}}
 {{ range .NoteGroups -}}
