@@ -30,7 +30,7 @@ export const Layout = ({
         <meta name="og:title" content={siteTitle} />
         <meta name="twitter:card" content="summary_large_image" />
       </Head>
-      <div>
+      {/* <div>
         <Nav />
       </div>
       <header className={styles.header}>
@@ -61,7 +61,7 @@ export const Layout = ({
             </h2>
           </>
         )}
-      </header>
+      </header> */}
       <main>{children}</main>
       {!home && (
         <div className={styles.backToHome}>

@@ -28,7 +28,7 @@ export const Home = ({
       <Head>
         <title>{siteTitle}</title>
       </Head>
-      <section>
+      {/* <section>
         <div>
           <div>
             <p>Current locale: {locale}</p>
@@ -56,7 +56,7 @@ export const Home = ({
             </ul>
           </div>
         </div>
-      </section>
+      </section> */}
       <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
         <h2 className={utilStyles.headingLg}>{t('common:blog')}</h2>
         <ul className={utilStyles.list}>
